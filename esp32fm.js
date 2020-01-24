@@ -3,14 +3,16 @@
 // Written to allow me to manage the 'Storage' on the ESP32.
 // Makes serving files from a webserver easier when they are already on the device.
 // Trevor Merritt <trevor.merritt@gmail.com>
-// Version 0.1.1
+// Version 0.1.2
 // CHANGELOG
+// 0.1.2
+//  - Form generation fixes.
 // 0.1.1
 //  - Removed debugging outputs
 //  - Optimized some simple if/else statements
-var ssid = '__YOUR_SSID_HERE__';
-var password = '__YOUR_PASS_HERE__';
-var apname = 'ESP32FM'
+var ssid = 'Lord of the Pings';
+var password = 'password';
+var apname = 'ESP32FM';
 var wifi = require('Wifi'), WebServer = require('WebServer'), Storage = require('Storage');
 function onInit() {
   attempt_wifi_connect();
@@ -69,10 +71,10 @@ function index_njs(req, res, uri, webs) {
       '<form><input type="hidden" name="path" value="' + f + '"/>' +
       '<input type="submit" name="action" value="rm" />' +
       '<form><input type="hidden" name="path" value="' + f + '"/>' +
-      '<input type="submit" name="action" value="read" /></form>'
+      '<input type="submit" name="action" value="read" /></form>'+
      '</li>';
   });
-  var page_content = '<html><body><p>Free:'+Storage.getFree()+'</p>'
+  var page_content = '<html><body><p>Free:'+Storage.getFree()+'</p>' +
     '<p><ul>'+c+'</ul></p>'+
     '<p><b>Result:</b>' + JSON.stringify(result) + '</p>' +
     '<p><form><textarea name="file" cols="40" rows="20"></textarea><input type="text" name="path" /><input type="submit" name="action" value="write"/></form></p>' +
@@ -81,4 +83,4 @@ function index_njs(req, res, uri, webs) {
     type: 'text/html',
     content: page_content
   };
-};
+}
